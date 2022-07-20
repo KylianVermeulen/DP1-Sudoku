@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class BoxComposite implements Component {
-    List<Component> components;
+    private List<Component> components;
 
     public BoxComposite(List<Component> components) {
         this.components = components;

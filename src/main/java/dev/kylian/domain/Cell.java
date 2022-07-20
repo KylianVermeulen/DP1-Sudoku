@@ -7,6 +7,7 @@ public class Cell implements Component {
 
     public Cell(Coordinate coordinate) {
         this.coordinate = coordinate;
+        this.locked = false;
     }
 
     @Override

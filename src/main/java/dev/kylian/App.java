@@ -18,15 +18,23 @@ public class App {
         writer.println(item);
         writer.flush();
 
+        // Setup board
         Board board = new Board();
         List<Component> components = new ArrayList<>();
         components.add(new BoxComposite(List.of(new Cell(new Coordinate(0, 0)), new Cell(new Coordinate(1,0)))));
         components.add(new BoxComposite(List.of(new Cell(new Coordinate(0, 1)), new Cell(new Coordinate(1,1)))));
         components.add(new BoxComposite(List.of(new Cell(new Coordinate(0, 2)), new Cell(new Coordinate(1,2)))));
         board.setComponents(components);
-        board.getComponents().forEach(component -> {
-            writer.println(component.draw());
-        });
+
+        // Print board
+        writer.println(board.draw());
+        writer.flush();
+
+        // Place value on board
+        board.place(new Coordinate(1,0), 9, true);
+
+        // Print board
+        writer.println(board.draw());
         writer.flush();
     }
 
