@@ -1,28 +1,16 @@
 package dev.kylian.domain;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class Board implements Component {
-    private List<Component> components;
-
-    public List<Component> getComponents() {
-        return components;
-    }
-
-    public void setComponents(List<Component> components) {
-        this.components = components;
-    }
+    private List<Component> regions;
 
     @Override
-    public void place(Coordinate coordinate, int value, boolean locked) {
-        this.components.forEach(c -> c.place(coordinate, value, locked));
+    public boolean validate() {
+        return regions.stream().allMatch(Component::validate);
     }
 
-    @Override
-    public String draw() {
-        AtomicReference<String> result = new AtomicReference<>("");
-        this.components.forEach(c -> result.set(result + c.draw()));
-        return result.get();
+    public void setRegions(List<Component> regions) {
+        this.regions = regions;
     }
 }
