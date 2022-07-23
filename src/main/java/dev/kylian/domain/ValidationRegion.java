@@ -7,10 +7,6 @@ public class ValidationRegion implements Component {
 
     @Override
     public boolean validate() {
-        return components.stream().allMatch(Component::validate);
-    }
-
-    public void setComponents(List<Component> components) {
-        this.components = components;
+        return true;
     }
 }

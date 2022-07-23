@@ -12,4 +12,8 @@ public class Cell implements Component {
     public boolean validate() {
         return true;
     }
+
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
 }
