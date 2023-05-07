@@ -6,7 +6,6 @@ import dev.kylian.domain.SudokuComponent;
 import dev.kylian.domain.UniqueValueComponent;
 import dev.kylian.ui.TerminalView;
 
-import java.io.Console;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -78,6 +77,9 @@ public class App {
         if (leftColumn.isValid()) printWriter.println("\033[1;32mLeftColumn Valid\u001B[0m");
         else printWriter.println("\033[1;31mLeftColumn Invalid\u001B[0m");
         printWriter.flush();
+
+        board.setValue(0, 0, 3);
+        board.isValid();
 
         terminalView.viewBoard(board);
     }
