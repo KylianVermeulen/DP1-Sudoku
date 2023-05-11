@@ -1,6 +1,6 @@
 package dev.kylian.ui;
 
-import dev.kylian.domain.SudokuComponent;
+import dev.kylian.domain.backup.SudokuComponentBackup;
 
 import java.io.PrintWriter;
 
@@ -11,7 +11,7 @@ public class TerminalView {
         this.printWriter = printWriter;
     }
 
-    public void viewBoard(SudokuComponent board) {
+    public void viewBoard(SudokuComponentBackup board) {
         printWriter.println(board);
         printWriter.flush();
     }
