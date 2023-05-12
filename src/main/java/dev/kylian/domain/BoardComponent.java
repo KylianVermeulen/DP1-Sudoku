@@ -16,8 +16,6 @@ public class BoardComponent implements SudokuComponent {
         if (value < 1 || value > size) {
             throw new IllegalArgumentException("Value must be between 1 and " + size);
         }
-
-//        components.get(x + y * 9).setValue(x, y, value);
         components.forEach(component -> component.setValue(x, y, value));
     }
 
