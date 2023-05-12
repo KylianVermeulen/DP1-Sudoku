@@ -1,6 +1,6 @@
 package dev.kylian.ui;
 
-import dev.kylian.domain.backup.SudokuComponentBackup;
+import dev.kylian.domain.composite.Cell;
 
 import java.io.PrintWriter;
 
@@ -11,9 +11,49 @@ public class TerminalView {
         this.printWriter = printWriter;
     }
 
-    public void viewBoard(SudokuComponentBackup board) {
-        printWriter.println(board);
-        printWriter.flush();
+    public static void printSudokuBoard(Cell[][] grid, PrintWriter writer) {
+        int size = grid.length;
+
+        // Print horizontal line
+        printHorizontalLine(size, writer);
+
+        for (int row = 0; row < size; row++) {
+            for (int col = 0; col < size; col++) {
+                Cell cell = grid[row][col];
+                int value = cell.getValue();
+
+                // Print vertical separator
+                if (col % 3 == 0) {
+                    writer.print("| ");
+                } else {
+                    writer.print("  ");
+                }
+
+                // Print cell value
+                if (value == 0) {
+                    writer.print(". ");
+                } else {
+                    writer.print(value + " ");
+                }
+            }
+
+            writer.println("|"); // End of row
+
+            // Print horizontal line
+            if ((row + 1) % 3 == 0) {
+                printHorizontalLine(size, writer);
+            }
+        }
+    }
+
+    private static void printHorizontalLine(int size, PrintWriter writer) {
+        int lineLength = size * 4 + size / 6;
+
+        for (int i = 0; i < lineLength; i++) {
+            writer.print("-");
+        }
+
+        writer.println();
     }
 
     public void viewSudoku() {
