@@ -1,4 +1,6 @@
-package dev.kylian.domain;
+package dev.kylian.domain.strategy;
+
+import dev.kylian.domain.composite.Cell;
 
 public class HelpValueStrategy implements ValueStrategy {
 

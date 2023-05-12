@@ -1,4 +1,8 @@
-package dev.kylian.domain;
+package dev.kylian.domain.composite;
+
+import dev.kylian.domain.strategy.NormalValueStrategy;
+import dev.kylian.domain.strategy.ValueStrategy;
+import dev.kylian.domain.visitor.Visitor;
 
 import java.util.Set;
 

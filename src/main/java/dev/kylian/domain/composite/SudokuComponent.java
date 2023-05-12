@@ -1,4 +1,7 @@
-package dev.kylian.domain;
+package dev.kylian.domain.composite;
+
+import dev.kylian.domain.strategy.ValueStrategy;
+import dev.kylian.domain.visitor.Visitor;
 
 public interface SudokuComponent {
     void setValue(int x, int y, int value);

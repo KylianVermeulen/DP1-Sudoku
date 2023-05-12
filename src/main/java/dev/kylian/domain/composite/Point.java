@@ -1,4 +1,4 @@
-package dev.kylian.domain;
+package dev.kylian.domain.composite;
 
 import java.util.Objects;
 
