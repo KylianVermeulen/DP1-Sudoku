@@ -2,9 +2,6 @@ package dev.kylian;
 
 import dev.kylian.domain.SudokuGame;
 import dev.kylian.domain.composite.Cell;
-import dev.kylian.domain.composite.SudokuComponent;
-import dev.kylian.domain.factory.BasicSudokuBoardFactory;
-import dev.kylian.domain.factory.SudokuBoardFactory;
 import dev.kylian.domain.visitor.CreateCellGridVisitor;
 import dev.kylian.ui.TerminalView;
 
@@ -24,6 +21,7 @@ public class App {
         Cell[][] grid = visitor.getGrid();
 
         TerminalView.printSudokuBoard(grid, printWriter);
+        printWriter.println("Valid: " + game.getSudoku().isValid());
         printWriter.flush();
     }
 }
