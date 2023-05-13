@@ -3,6 +3,8 @@ package dev.kylian.ui;
 import dev.kylian.domain.composite.Cell;
 
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class TerminalView {
     private final PrintWriter printWriter;
@@ -13,13 +15,17 @@ public class TerminalView {
 
     public static void printSudokuBoard(Cell[][] grid, PrintWriter writer) {
         int size = grid.length;
+        int size2 = Arrays.stream(grid).max(Comparator.comparingInt(o -> o.length)).orElseThrow().length;
 
         // Print horizontal line
         printHorizontalLine(size, writer);
 
         for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
+            for (int col = 0; col < size2; col++) {
                 Cell cell = grid[row][col];
+                if (cell == null) {
+                    continue;
+                }
                 int value = cell.getValue();
 
                 // Print vertical separator

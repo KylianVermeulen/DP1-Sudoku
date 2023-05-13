@@ -23,6 +23,9 @@ public class BasicSudokuBoardFactory implements SudokuBoardFactory {
 
         List<SudokuComponent> components = new ArrayList<>();
 
+//        CellGroupComponent test = null;
+//        CellGroupComponent test2 = null;
+
         // Create row components
         for (int row = 0; row < 9; row++) {
             List<Cell> cells = new ArrayList<>();
@@ -38,6 +41,7 @@ public class BasicSudokuBoardFactory implements SudokuBoardFactory {
                 ValueStrategy valueStrategy = null;
                 cells.add(new Cell(value, point, box, helpValues, isGiven, isCorrect, valueStrategy));
             }
+//            if (test == null) test = new CellGroupComponent(cells);
             components.add(new CellGroupComponent(cells));
         }
 
@@ -56,6 +60,7 @@ public class BasicSudokuBoardFactory implements SudokuBoardFactory {
                 ValueStrategy valueStrategy = null;
                 cells.add(new Cell(value, point, box, helpValues, isGiven, isCorrect, valueStrategy));
             }
+//            if (test2 == null) test2 = new CellGroupComponent(cells);
             components.add(new CellGroupComponent(cells));
         }
 
@@ -81,6 +86,7 @@ public class BasicSudokuBoardFactory implements SudokuBoardFactory {
         }
 
         return new BoardComponent(components, 9);
+//        return new BoardComponent(List.of(test, test2), 9);
     }
 
     private int getBoxNumber(int col, int row) {
