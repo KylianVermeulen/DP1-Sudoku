@@ -8,9 +8,7 @@ import dev.kylian.domain.factory.SamuraiSudokuBoardFactory;
 import dev.kylian.domain.factory.SudokuBoardFactory;
 import dev.kylian.domain.strategy.NormalValueStrategy;
 import dev.kylian.domain.strategy.ValueStrategy;
-import dev.kylian.domain.visitor.CreateCellGridVisitor;
 
-import java.util.Collections;
 import java.util.Map;
 
 public class SudokuGame {
@@ -25,17 +23,16 @@ public class SudokuGame {
         );
     }
 
-    void initializeGame(String type) {
+    public void initializeGame(String type) {
         SudokuBoardFactory factory = getFactory(type);
         sudoku = factory.createSudokuBoard(null);
 
         ValueStrategy strategy = new NormalValueStrategy();
         sudoku.setValueStrategy(strategy);
+    }
 
-        CreateCellGridVisitor visitor = new CreateCellGridVisitor();
-        sudoku.accept(visitor);
-
-        Cell[][] grid = visitor.getGrid();
+    public SudokuComponent getSudoku() {
+        return sudoku;
     }
 
     private SudokuBoardFactory getFactory(String type) {

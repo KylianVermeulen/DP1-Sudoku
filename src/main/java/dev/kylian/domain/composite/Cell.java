@@ -26,11 +26,6 @@ public class Cell implements SudokuComponent {
         this.valueStrategy = valueStrategy;
     }
 
-    public Cell(int value, boolean isGiven) {
-        this.value = value;
-        this.isGiven = isGiven;
-    }
-
     @Override
     public void setValue(int x, int y, int value) {
         if (isGiven) return;

@@ -18,9 +18,9 @@ public class CreateCellGridVisitor implements Visitor {
     }
 
     public Cell[][] getGrid() {
-        Cell[][] grid = new Cell[maxX][maxY];
+        Cell[][] grid = new Cell[maxY+1][maxX+1];
         for (Cell cell : cells) {
-            grid[cell.getPoint().x()][cell.getPoint().y()] = cell;
+            grid[cell.getPoint().y()][cell.getPoint().x()] = cell;
         }
         return grid;
     }

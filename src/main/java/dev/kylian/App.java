@@ -1,6 +1,11 @@
 package dev.kylian;
 
+import dev.kylian.domain.SudokuGame;
 import dev.kylian.domain.composite.Cell;
+import dev.kylian.domain.composite.SudokuComponent;
+import dev.kylian.domain.factory.BasicSudokuBoardFactory;
+import dev.kylian.domain.factory.SudokuBoardFactory;
+import dev.kylian.domain.visitor.CreateCellGridVisitor;
 import dev.kylian.ui.TerminalView;
 
 import java.io.PrintWriter;
@@ -10,27 +15,15 @@ public class App {
     public static void main(String[] args) {
         PrintWriter printWriter = new PrintWriter(System.out);
 
-        String sudokuLine = "700509001000000000150070063003904100000050000002106400390040076000000000600201004";
+        SudokuGame game = new SudokuGame();
+        game.initializeGame("basic");
 
-        Cell[][] grid = App.parseSudokuLine(sudokuLine);
+        CreateCellGridVisitor visitor = new CreateCellGridVisitor();
+        game.getSudoku().accept(visitor);
+
+        Cell[][] grid = visitor.getGrid();
+
         TerminalView.printSudokuBoard(grid, printWriter);
         printWriter.flush();
-    }
-
-    public static Cell[][] parseSudokuLine(String line) {
-        int size = 9;
-        Cell[][] grid = new Cell[size][size];
-
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
-                char ch = line.charAt(row * size + col);
-                int value = Character.getNumericValue(ch);
-                boolean isGiven = value != 0;
-
-                grid[row][col] = new Cell(value, isGiven);
-            }
-        }
-
-        return grid;
     }
 }
