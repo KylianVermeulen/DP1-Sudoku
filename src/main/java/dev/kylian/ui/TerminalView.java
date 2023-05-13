@@ -45,6 +45,8 @@ public class TerminalView {
                         printWriter.print("\u001B[33m" + value + "\u001B[0m ");
                     else if (cell.isValid())
                         printWriter.print("\u001B[34m" + value + "\u001B[0m ");
+//                    printWriter.print("\u001B[38;5;231;48;5;21m" + value + "\u001B[0m ");
+//                    https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences
                 }
             }
 
