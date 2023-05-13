@@ -11,6 +11,7 @@ public class App {
 
     public static void main(String[] args) {
         PrintWriter printWriter = new PrintWriter(System.out);
+        TerminalView terminalView = new TerminalView(printWriter);
 
         SudokuGame game = new SudokuGame();
         game.initializeGame("basic");
@@ -20,8 +21,14 @@ public class App {
 
         Cell[][] grid = visitor.getGrid();
 
-        TerminalView.printSudokuBoard(grid, printWriter);
-        printWriter.println("Valid: " + game.getSudoku().isValid());
+        terminalView.printSudokuBoard(grid);
+        printWriter.println("Valid: \u001B[31m" + game.getSudoku().isValid() + "\u001B[0m");
+        printWriter.flush();
+
+        game.getSudoku().setValue(4, 1, 1);
+
+        terminalView.printSudokuBoard(grid);
+        printWriter.println("Valid: \u001B[31m" + game.getSudoku().isValid() + "\u001B[0m");
         printWriter.flush();
     }
 }

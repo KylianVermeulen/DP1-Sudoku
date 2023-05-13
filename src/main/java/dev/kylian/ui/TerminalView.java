@@ -13,12 +13,12 @@ public class TerminalView {
         this.printWriter = printWriter;
     }
 
-    public static void printSudokuBoard(Cell[][] grid, PrintWriter writer) {
+    public void printSudokuBoard(Cell[][] grid) {
         int size = grid.length;
         int size2 = Arrays.stream(grid).max(Comparator.comparingInt(o -> o.length)).orElseThrow().length;
 
         // Print horizontal line
-        printHorizontalLine(size, writer);
+        printHorizontalLine(size);
 
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size2; col++) {
@@ -30,73 +30,42 @@ public class TerminalView {
 
                 // Print vertical separator
                 if (col % 3 == 0) {
-                    writer.print("| ");
+                    printWriter.print("| ");
                 } else {
-                    writer.print("  ");
+                    printWriter.print("  ");
                 }
 
                 // Print cell value
                 if (value == 0) {
-                    writer.print(". ");
+                    printWriter.print(". ");
                 } else {
-                    writer.print(value + " ");
+                    if (cell.isGiven())
+                        printWriter.print("\u001B[32m" + value + "\u001B[0m ");
+                    else if (!cell.isCorrect())
+                        printWriter.print("\u001B[33m" + value + "\u001B[0m ");
+                    else if (cell.isValid())
+                        printWriter.print("\u001B[34m" + value + "\u001B[0m ");
                 }
             }
 
-            writer.println("|"); // End of row
+            printWriter.println("|"); // End of row
 
             // Print horizontal line
             if ((row + 1) % 3 == 0) {
-                printHorizontalLine(size, writer);
+                printHorizontalLine(size);
             }
         }
+
+        printWriter.flush();
     }
 
-    private static void printHorizontalLine(int size, PrintWriter writer) {
+    private void printHorizontalLine(int size) {
         int lineLength = size * 4 + size / 6;
 
         for (int i = 0; i < lineLength; i++) {
-            writer.print("-");
+            printWriter.print("-");
         }
 
-        writer.println();
-    }
-
-    public void viewSudoku() {
-        String bgColor = "\u001B[48;5;";
-        String cellColor = bgColor + "208m";
-        String resetColor = "\u001B[0m";
-
-        printWriter.print("\033[1;31m");
-        printWriter.println("+-------+-------+-------+");
-        printWriter.println("| 2 6   |    1  |       |");
-        printWriter.println("| 3     |   5   |   8   |");
-        printWriter.println("|       |   7   | 9     |");
-        printWriter.println("+-------+-------+-------+");
-        printWriter.println("| 5     |       | 1 9   |");
-        printWriter.println("|       |       |       |");
-        printWriter.println("| 9 8   |       |   6   |");
-        printWriter.println("+-------+-------+-------+");
-        printWriter.println("|   2 0 | 1     |       |");
-        printWriter.println("| 7     | 8     | 3     |");
-        printWriter.println("|       | 6     | 7 2   |");
-        printWriter.println("+-------+-------+-------+");
-        printWriter.flush();
-
-        printWriter.print("\033[1;32m");
-        printWriter.println("+-------+-------+-------+");
-        printWriter.println("| 2     |    1  |       |");
-        printWriter.println("| 5     |   5   |   8   |");
-        printWriter.println("|       |   7   | 9     |");
-        printWriter.println("+-------+-------+-------+");
-        printWriter.println("| 5     |       | 1 9   |");
-        printWriter.println("|       |       |       |");
-        printWriter.println("| 9 8   |       |   6   |");
-        printWriter.println("+-------+-------+-------+");
-        printWriter.println("|   2 0 | 1     |       |");
-        printWriter.println("| 7     | 8     | 3     |");
-        printWriter.println("|       | 6     | 7 2   |");
-        printWriter.println("+-------+-------+-------+");
-        printWriter.flush();
+        printWriter.println();
     }
 }

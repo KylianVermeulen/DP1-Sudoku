@@ -70,10 +70,6 @@ public class Cell implements SudokuComponent {
         return Objects.hash(value, point, box, isGiven, isCorrect);
     }
 
-    public int getValue() {
-        return value;
-    }
-
     public void changeValue(int value) {
         this.value = (this.value != value) ? value : 0;
     }
@@ -86,7 +82,19 @@ public class Cell implements SudokuComponent {
         }
     }
 
+    public int getValue() {
+        return value;
+    }
+
     public Point getPoint() {
         return point;
+    }
+
+    public boolean isGiven() {
+        return isGiven;
+    }
+
+    public boolean isCorrect() {
+        return isCorrect;
     }
 }
