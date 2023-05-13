@@ -4,15 +4,16 @@ import dev.kylian.domain.strategy.NormalValueStrategy;
 import dev.kylian.domain.strategy.ValueStrategy;
 import dev.kylian.domain.visitor.Visitor;
 
+import java.util.Objects;
 import java.util.Set;
 
 public class Cell implements SudokuComponent {
     private int value;
-    private final Point point;
-    private final int box;
-    private final Set<Integer> helpValues;
-    private final boolean isGiven;
-    private final boolean isCorrect;
+    private Point point;
+    private int box;
+    private Set<Integer> helpValues;
+    private boolean isGiven;
+    private boolean isCorrect;
     private ValueStrategy valueStrategy;
 
     public Cell(int value, Point point, int box, Set<Integer> helpValues, boolean isGiven, boolean isCorrect, ValueStrategy valueStrategy) {
@@ -28,10 +29,6 @@ public class Cell implements SudokuComponent {
     public Cell(int value, boolean isGiven) {
         this.value = value;
         this.isGiven = isGiven;
-        this.point = null;
-        this.box = 0;
-        this.helpValues = null;
-        this.isCorrect = false;
     }
 
     @Override
@@ -65,6 +62,19 @@ public class Cell implements SudokuComponent {
         this.valueStrategy = strategy;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cell cell = (Cell) o;
+        return value == cell.value && box == cell.box && isGiven == cell.isGiven && isCorrect == cell.isCorrect && Objects.equals(point, cell.point);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, point, box, isGiven, isCorrect);
+    }
+
     public int getValue() {
         return value;
     }
@@ -79,5 +89,9 @@ public class Cell implements SudokuComponent {
         } else {
             helpValues.add(value);
         }
+    }
+
+    public Point getPoint() {
+        return point;
     }
 }
