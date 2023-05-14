@@ -2,6 +2,7 @@ package dev.kylian.ui;
 
 import dev.kylian.domain.composite.Cell;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -14,6 +15,9 @@ public class TerminalView {
     }
 
     public void printSudokuBoard(Cell[][] grid) {
+        printWriter.println("\033[H\033[2J");
+        printWriter.flush();
+
         int size = grid.length;
         int size2 = Arrays.stream(grid).max(Comparator.comparingInt(o -> o.length)).orElseThrow().length;
 
