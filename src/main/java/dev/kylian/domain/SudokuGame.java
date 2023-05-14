@@ -1,6 +1,5 @@
 package dev.kylian.domain;
 
-import dev.kylian.domain.composite.Cell;
 import dev.kylian.domain.composite.SudokuComponent;
 import dev.kylian.domain.factory.BasicSudokuBoardFactory;
 import dev.kylian.domain.factory.JigsawSudokuBoardFactory;

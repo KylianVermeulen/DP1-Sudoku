@@ -14,7 +14,7 @@ public class App {
         TerminalView terminalView = new TerminalView(printWriter);
 
         SudokuGame game = new SudokuGame();
-        game.initializeGame("basic");
+        game.initializeGame("samurai");
 
         CreateCellGridVisitor visitor = new CreateCellGridVisitor();
         game.getSudoku().accept(visitor);
@@ -25,7 +25,8 @@ public class App {
         printWriter.println("Valid: \u001B[31m" + game.getSudoku().isValid() + "\u001B[0m");
         printWriter.flush();
 
-        game.getSudoku().setValue(4, 1, 1);
+//        game.getSudoku().setValue(4, 1, 1);
+        game.getSudoku().setValue(10, 6, 1);
 
         terminalView.printSudokuBoard(grid);
         printWriter.println("Valid: \u001B[31m" + game.getSudoku().isValid() + "\u001B[0m");

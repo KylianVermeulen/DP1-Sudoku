@@ -23,10 +23,6 @@ public class TerminalView {
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size2; col++) {
                 Cell cell = grid[row][col];
-                if (cell == null) {
-                    continue;
-                }
-                int value = cell.getValue();
 
                 // Print vertical separator
                 if (col % 3 == 0) {
@@ -34,6 +30,12 @@ public class TerminalView {
                 } else {
                     printWriter.print("  ");
                 }
+
+                if (cell == null) {
+                    printWriter.print("  ");
+                    continue;
+                }
+                int value = cell.getValue();
 
                 // Print cell value
                 if (value == 0) {
