@@ -22,14 +22,14 @@ public class App {
         Cell[][] grid = visitor.getGrid();
 
         terminalView.printSudokuBoard(grid);
-        printWriter.println("Valid: \u001B[31m" + game.getSudoku().isValid() + "\u001B[0m");
+        printWriter.println("Completed: \u001B[31m" + game.getSudoku().isValid() + "\u001B[0m");
         printWriter.flush();
 
 //        game.getSudoku().setValue(4, 1, 1);
         game.getSudoku().setValue(10, 6, 1);
 
         terminalView.printSudokuBoard(grid);
-        printWriter.println("Valid: \u001B[31m" + game.getSudoku().isValid() + "\u001B[0m");
+        printWriter.println("Completed: \u001B[31m" + game.getSudoku().isValid() + "\u001B[0m");
         printWriter.flush();
     }
 }

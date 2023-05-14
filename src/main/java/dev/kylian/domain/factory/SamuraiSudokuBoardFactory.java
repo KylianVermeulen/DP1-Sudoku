@@ -92,7 +92,6 @@ public class SamuraiSudokuBoardFactory implements SudokuBoardFactory {
                     boolean isGiven = (value != 0);
                     Point point = new Point(col+offsetX, row+offsetY);
                     int boxNumber = getBoxNumber(col+offsetX, row+offsetY);
-                    System.out.println("col: " + col + " row: " + row + " box: " + box + " index: " + index + " value: " + value);
                     Set<Integer> helpValues = new HashSet<>();
                     boolean isCorrect = true;
                     ValueStrategy valueStrategy = null;
