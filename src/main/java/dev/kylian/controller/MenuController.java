@@ -7,7 +7,7 @@ import java.util.Set;
 public class MenuController {
 
     public MenuController() {
-        Set<String> fileNames = Set.of("basic", "4x4", "6x6", "9x9", "jigsaw", "samurai");
+        Set<String> fileNames = Set.of("4x4", "6x6", "9x9", "jigsaw", "samurai");
         FileSelectionView fileSelectionView = new FileSelectionView(this, fileNames);
         fileSelectionView.render();
     }

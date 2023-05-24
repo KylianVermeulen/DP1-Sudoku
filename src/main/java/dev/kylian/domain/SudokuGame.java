@@ -8,7 +8,9 @@ import dev.kylian.domain.factory.SudokuBoardFactory;
 import dev.kylian.domain.strategy.NormalValueStrategy;
 import dev.kylian.domain.strategy.ValueStrategy;
 
+import java.io.File;
 import java.util.Map;
+import java.util.Random;
 
 public class SudokuGame {
     private SudokuComponent sudoku;
@@ -16,15 +18,19 @@ public class SudokuGame {
 
     public SudokuGame() {
         factories = Map.of(
-                "basic", new BasicSudokuBoardFactory(),
+                "9x9", new BasicSudokuBoardFactory(),
                 "jigsaw", new JigsawSudokuBoardFactory(),
                 "samurai", new SamuraiSudokuBoardFactory()
         );
     }
 
-    public void initializeGame(String type) {
+    public void initializeNewGame(String type) {
+        Random random = new Random();
+        int i = random.nextInt(1, 4);
+        File file = new File("src/main/resources/puzzle" + ((i != 1) ? i : "") + "." + type);
+
         SudokuBoardFactory factory = getFactory(type);
-        sudoku = factory.createSudokuBoard(null);
+        sudoku = factory.createSudokuBoard(file);
 
         ValueStrategy strategy = new NormalValueStrategy();
         sudoku.setValueStrategy(strategy);

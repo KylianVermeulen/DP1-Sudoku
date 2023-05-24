@@ -3,7 +3,9 @@ package dev.kylian.domain.factory;
 import dev.kylian.domain.composite.*;
 import dev.kylian.domain.strategy.ValueStrategy;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -13,7 +15,14 @@ public class BasicSudokuBoardFactory implements SudokuBoardFactory {
 
     @Override
     public SudokuComponent createSudokuBoard(File file) {
-        String line = "700509001000000000150070063003904100000050000002106400390040076000000000600201004";
+//        String line = "700509001000000000150070063003904100000050000002106400390040076000000000600201004";
+        String line = "";
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+            line = bufferedReader.readLine();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         System.out.println("line: " + line + " line.length(): " + line.length());
 

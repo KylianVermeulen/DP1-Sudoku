@@ -13,7 +13,7 @@ public class GameController {
 
     public GameController(String type) {
         game = new SudokuGame();
-        game.initializeGame(type);
+        game.initializeNewGame(type);
         printBoard();
         game.getSudoku().setValue(10, 6, 1);
         printBoard();

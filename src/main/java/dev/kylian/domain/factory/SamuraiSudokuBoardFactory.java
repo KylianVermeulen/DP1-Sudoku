@@ -3,7 +3,9 @@ package dev.kylian.domain.factory;
 import dev.kylian.domain.composite.*;
 import dev.kylian.domain.strategy.ValueStrategy;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -13,12 +15,26 @@ public class SamuraiSudokuBoardFactory implements SudokuBoardFactory {
 
     @Override
     public SudokuComponent createSudokuBoard(File file) {
+
         String[] lines = new String[5];
-        lines[0] = "800000700003050206700300095000091840000007002000062000000000000609080000002903000";
-        lines[1] = "149000000000091000000060000007120008000000340405008067000000000000007020000050003";
-        lines[2] = "000000000000008000000004000010600005030070080800005010000900000000800000000000000";
-        lines[3] = "900060000030400000000000000390800407065000000200037600000080000000190000000000914";
-        lines[4] = "000402800000080902000000000000610000400800000098750000670008001901060700002000009";
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+            int i = 0;
+            String line;
+            while ((line = bufferedReader.readLine()) != null && i < 5) {
+                lines[i] = line;
+                i++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+//        String[] lines = new String[5];
+//        lines[0] = "800000700003050206700300095000091840000007002000062000000000000609080000002903000";
+//        lines[1] = "149000000000091000000060000007120008000000340405008067000000000000007020000050003";
+//        lines[2] = "000000000000008000000004000010600005030070080800005010000900000000800000000000000";
+//        lines[3] = "900060000030400000000000000390800407065000000200037600000080000000190000000000914";
+//        lines[4] = "000402800000080902000000000000610000400800000098750000670008001901060700002000009";
 
         String[] offsets = new String[5];
         offsets[0] = "0,0";
