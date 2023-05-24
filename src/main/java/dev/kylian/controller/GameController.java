@@ -7,18 +7,18 @@ import dev.kylian.ui.TerminalView;
 
 import java.io.PrintWriter;
 
-public class MainController {
+public class GameController {
     private final TerminalView terminalView = new TerminalView(new PrintWriter(System.out));
     private SudokuGame game;
 
-    public MainController() {
+    public GameController(String type) {
         game = new SudokuGame();
-        game.initializeGame("samurai");
+        game.initializeGame(type);
         printBoard();
         game.getSudoku().setValue(10, 6, 1);
         printBoard();
 
-//        game.getSudoku().setValue(4, 1, 1);
+//        PrintWriter printWriter = new PrintWriter(System.out);
 //        printWriter.println("Completed: \u001B[31m" + game.getSudoku().isValid() + "\u001B[0m");
 //        printWriter.flush();
     }

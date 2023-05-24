@@ -1,10 +1,10 @@
 package dev.kylian;
 
-import dev.kylian.controller.MainController;
+import dev.kylian.controller.MenuController;
 
 public class App {
 
     public static void main(String[] args) {
-        MainController mainController = new MainController();
+        new MenuController();
     }
 }
