@@ -42,4 +42,8 @@ public class BoardComponent implements SudokuComponent {
     public void setValueStrategy(ValueStrategy strategy) {
         components.forEach(component -> component.setValueStrategy(strategy));
     }
+
+    public int getSize() {
+        return size;
+    }
 }

@@ -1,10 +1,7 @@
 package dev.kylian.domain;
 
 import dev.kylian.domain.composite.SudokuComponent;
-import dev.kylian.domain.factory.BasicSudokuBoardFactory;
-import dev.kylian.domain.factory.JigsawSudokuBoardFactory;
-import dev.kylian.domain.factory.SamuraiSudokuBoardFactory;
-import dev.kylian.domain.factory.SudokuBoardFactory;
+import dev.kylian.domain.factory.*;
 import dev.kylian.domain.strategy.NormalValueStrategy;
 import dev.kylian.domain.strategy.ValueStrategy;
 
@@ -19,6 +16,8 @@ public class SudokuGame {
     public SudokuGame() {
         factories = Map.of(
                 "9x9", new BasicSudokuBoardFactory(),
+                "6x6", new BasicSudokuBoardFactory(),
+                "4x4", new FourByFourSudokuBoardFactory(),
                 "jigsaw", new JigsawSudokuBoardFactory(),
                 "samurai", new SamuraiSudokuBoardFactory()
         );

@@ -10,6 +10,7 @@ public class CreateCellGridVisitor implements Visitor {
     private int maxX;
     private int maxY;
     private final HashSet<Cell> cells;
+    private int boxSize;
 
     public CreateCellGridVisitor() {
         maxX = 0;
@@ -39,6 +40,10 @@ public class CreateCellGridVisitor implements Visitor {
 
     @Override
     public void visit(BoardComponent component) {
+        boxSize = component.getSize();
+    }
 
+    public int getBoxSize() {
+        return boxSize;
     }
 }

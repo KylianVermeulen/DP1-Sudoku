@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class BasicSudokuBoardFactory implements SudokuBoardFactory {
+public class FourByFourSudokuBoardFactory implements SudokuBoardFactory {
 
     @Override
     public SudokuComponent createSudokuBoard(File file) {
@@ -25,17 +25,18 @@ public class BasicSudokuBoardFactory implements SudokuBoardFactory {
 
         System.out.println("line: " + line + " line.length(): " + line.length());
 
-        if (line.length() != 81 && line.length() != 36 && line.length() != 16) {
+        if (line.length() != 16) {
             throw new IllegalArgumentException("Invalid line length. Expected length: 81");
         }
 
         List<SudokuComponent> components = new ArrayList<>();
 
+
         // Create row components
-        for (int row = 0; row < 9; row++) {
+        for (int row = 0; row < 4; row++) {
             List<Cell> cells = new ArrayList<>();
-            for (int col = 0; col < 9; col++) {
-                int index = row * 9 + col;
+            for (int col = 0; col < 4; col++) {
+                int index = row * 4 + col;
                 int value = Character.getNumericValue(line.charAt(index));
                 boolean isGiven = (value != 0);
                 Point point = new Point(col, row);
@@ -51,10 +52,10 @@ public class BasicSudokuBoardFactory implements SudokuBoardFactory {
         }
 
         // Create column components
-        for (int col = 0; col < 9; col++) {
+        for (int col = 0; col < 4; col++) {
             List<Cell> cells = new ArrayList<>();
-            for (int row = 0; row < 9; row++) {
-                int index = row * 9 + col;
+            for (int row = 0; row < 4; row++) {
+                int index = row * 4 + col;
                 int value = Character.getNumericValue(line.charAt(index));
                 boolean isGiven = (value != 0);
                 Point point = new Point(col, row);
@@ -70,13 +71,13 @@ public class BasicSudokuBoardFactory implements SudokuBoardFactory {
         }
 
         // Create box components
-        for (int box = 0; box < 9; box++) {
+        for (int box = 0; box < 4; box++) {
             List<Cell> cells = new ArrayList<>();
-            int startRow = box / 3 * 3;
-            int startCol = box % 3 * 3;
-            for (int row = startRow; row < startRow + 3; row++) {
-                for (int col = startCol; col < startCol + 3; col++) {
-                    int index = row * 9 + col;
+            int startRow = box / 2 * 2;
+            int startCol = box % 2 * 2;
+            for (int row = startRow; row < startRow + 2; row++) {
+                for (int col = startCol; col < startCol + 2; col++) {
+                    int index = row * 4 + col;
                     int value = Character.getNumericValue(line.charAt(index));
                     boolean isGiven = (value != 0);
                     Point point = new Point(col, row);
@@ -90,10 +91,10 @@ public class BasicSudokuBoardFactory implements SudokuBoardFactory {
             components.add(new CellGroupComponent(cells));
         }
 
-        return new BoardComponent(components, 9);
+        return new BoardComponent(components, 4);
     }
 
     private int getBoxNumber(int col, int row) {
-        return (row / 3) * 3 + (col / 3);
+        return (row / 2) * 2 + (col / 2);
     }
 }

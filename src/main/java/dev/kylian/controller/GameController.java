@@ -15,8 +15,6 @@ public class GameController {
         game = new SudokuGame();
         game.initializeNewGame(type);
         printBoard();
-        game.getSudoku().setValue(10, 6, 1);
-        printBoard();
 
 //        PrintWriter printWriter = new PrintWriter(System.out);
 //        printWriter.println("Completed: \u001B[31m" + game.getSudoku().isValid() + "\u001B[0m");
@@ -27,6 +25,6 @@ public class GameController {
         CreateCellGridVisitor visitor = new CreateCellGridVisitor();
         game.getSudoku().accept(visitor);
         Cell[][] grid = visitor.getGrid();
-        terminalView.printSudokuBoard(grid);
+        terminalView.printSudokuBoard(grid, visitor.getBoxSize());
     }
 }

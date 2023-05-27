@@ -2,7 +2,6 @@ package dev.kylian.ui;
 
 import dev.kylian.domain.composite.Cell;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -14,9 +13,11 @@ public class TerminalView {
         this.printWriter = printWriter;
     }
 
-    public void printSudokuBoard(Cell[][] grid) {
+    public void printSudokuBoard(Cell[][] grid, int boxSize) {
         printWriter.println("\033[H\033[2J");
         printWriter.flush();
+
+        boxSize = (boxSize == 9) ? 3 : 2;
 
         int size = grid.length;
         int size2 = Arrays.stream(grid).max(Comparator.comparingInt(o -> o.length)).orElseThrow().length;
@@ -29,7 +30,7 @@ public class TerminalView {
                 Cell cell = grid[row][col];
 
                 // Print vertical separator
-                if (col % 3 == 0) {
+                if (col % boxSize == 0) {
                     printWriter.print("| ");
                 } else {
                     printWriter.print("  ");
@@ -59,7 +60,7 @@ public class TerminalView {
             printWriter.println("|"); // End of row
 
             // Print horizontal line
-            if ((row + 1) % 3 == 0) {
+            if ((row + 1) % boxSize == 0) {
                 printHorizontalLine(size);
             }
         }
