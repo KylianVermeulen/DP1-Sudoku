@@ -16,7 +16,7 @@ public class SudokuGame {
     public SudokuGame() {
         factories = Map.of(
                 "9x9", new BasicSudokuBoardFactory(),
-                "6x6", new BasicSudokuBoardFactory(),
+                "6x6", new SixBySixSudokuBoardFactory(),
                 "4x4", new FourByFourSudokuBoardFactory(),
                 "jigsaw", new JigsawSudokuBoardFactory(),
                 "samurai", new SamuraiSudokuBoardFactory()

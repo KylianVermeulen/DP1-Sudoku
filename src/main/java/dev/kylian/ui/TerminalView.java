@@ -17,7 +17,8 @@ public class TerminalView {
         printWriter.println("\033[H\033[2J");
         printWriter.flush();
 
-        boxSize = (boxSize == 9) ? 3 : 2;
+        int rowSize = (boxSize == 9) ? 3 : (boxSize == 4) ? 2 : 3;
+        int colSize = (boxSize == 9) ? 3 : 2;
 
         int size = grid.length;
         int size2 = Arrays.stream(grid).max(Comparator.comparingInt(o -> o.length)).orElseThrow().length;
@@ -30,7 +31,7 @@ public class TerminalView {
                 Cell cell = grid[row][col];
 
                 // Print vertical separator
-                if (col % boxSize == 0) {
+                if (col % colSize == 0) {
                     printWriter.print("| ");
                 } else {
                     printWriter.print("  ");
@@ -60,7 +61,7 @@ public class TerminalView {
             printWriter.println("|"); // End of row
 
             // Print horizontal line
-            if ((row + 1) % boxSize == 0) {
+            if ((row + 1) % rowSize == 0) {
                 printHorizontalLine(size);
             }
         }
