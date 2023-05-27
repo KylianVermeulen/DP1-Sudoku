@@ -40,13 +40,11 @@ public class BasicSudokuBoardFactory implements SudokuBoardFactory {
                 boolean isGiven = (value != 0);
                 Point point = new Point(col, row);
                 int box = getBoxNumber(col, row);
-//                System.out.println("row: " + row + " col: " + col + " box: " + box + " index: " + index + " value: " + value);
                 Set<Integer> helpValues = new HashSet<>();
                 boolean isCorrect = true;
                 ValueStrategy valueStrategy = null;
                 cells.add(new Cell(value, point, box, helpValues, isGiven, isCorrect, valueStrategy));
             }
-//            if (test == null) test = new CellGroupComponent(cells);
             components.add(new CellGroupComponent(cells));
         }
 
@@ -59,13 +57,11 @@ public class BasicSudokuBoardFactory implements SudokuBoardFactory {
                 boolean isGiven = (value != 0);
                 Point point = new Point(col, row);
                 int box = getBoxNumber(col, row);
-//                System.out.println("row: " + row + " col: " + col + " box: " + box + " index: " + index + " value: " + value);
                 Set<Integer> helpValues = new HashSet<>();
                 boolean isCorrect = true;
                 ValueStrategy valueStrategy = null;
                 cells.add(new Cell(value, point, box, helpValues, isGiven, isCorrect, valueStrategy));
             }
-//            if (test2 == null) test2 = new CellGroupComponent(cells);
             components.add(new CellGroupComponent(cells));
         }
 
