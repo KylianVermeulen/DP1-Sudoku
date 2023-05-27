@@ -1,4 +1,4 @@
-package dev.kylian.ui;
+package dev.kylian;
 
 import dev.kylian.domain.composite.Cell;
 
