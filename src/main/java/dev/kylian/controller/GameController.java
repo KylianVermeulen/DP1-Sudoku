@@ -2,7 +2,6 @@ package dev.kylian.controller;
 
 import dev.kylian.domain.SudokuGame;
 import dev.kylian.domain.composite.Cell;
-import dev.kylian.domain.composite.Point;
 import dev.kylian.domain.visitor.CreateCellGridVisitor;
 import dev.kylian.ui.BoardView;
 
@@ -15,10 +14,10 @@ public class GameController {
         game.initializeNewGame(type);
 
         this.boardView = new BoardView(this);
-        actionViewBoard();
+        viewUpdatedBoard();
     }
 
-    public void actionViewBoard() {
+    public void viewUpdatedBoard() {
         CreateCellGridVisitor visitor = new CreateCellGridVisitor();
         game.getSudoku().accept(visitor);
         Cell[][] grid = visitor.getGrid();
@@ -30,6 +29,14 @@ public class GameController {
 
     public void actionPlaceValue(int x, int y, int value) {
         game.getSudoku().setValue(x, y, value);
-        actionViewBoard();
+        if (checkForWin()) {
+            System.out.println("You win!");
+            System.exit(0);
+        }
+        viewUpdatedBoard();
+    }
+
+    public boolean checkForWin() {
+        return game.getSudoku().isValid();
     }
 }
