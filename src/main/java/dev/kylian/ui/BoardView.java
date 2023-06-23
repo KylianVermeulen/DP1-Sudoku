@@ -10,9 +10,11 @@ import java.util.Scanner;
 
 public class BoardView {
     private final GameController gameController;
-    PrintWriter printWriter;
+    private final PrintWriter printWriter;
     private Cell[][] grid;
     private int boxSize;
+    private int currentX = 0;
+    private int currentY = 0;
 
     public BoardView(GameController gameController) {
         this.gameController = gameController;
@@ -29,7 +31,30 @@ public class BoardView {
         String input;
         while (scanner.hasNextLine()) {
             input = scanner.nextLine();
-            gameController.actionPlaceValue(Integer.parseInt(input.substring(0, 1)), Integer.parseInt(input.substring(1, 2)), Integer.parseInt(input.substring(2, 3)));
+            if (input.matches("\\d+")) {
+                // Numeric input, place the value in the cell.
+                gameController.actionPlaceValue(currentX, currentY, Integer.parseInt(input));
+            } else {
+                // Direction input, update the current cell.
+                updateCurrentCell(input);
+                printWriter.println("\033[H\033[2J");
+                printWriter.flush();
+                printBoard();
+                printWriter.flush();
+            }
+        }
+    }
+
+    private void updateCurrentCell(String direction) {
+        switch (direction.toLowerCase()) {
+            case "w" -> currentY = Math.max(0, currentY - 1);
+            case "s" -> currentY = Math.min(grid.length - 1, currentY + 1);
+            case "a" -> currentX = Math.max(0, currentX - 1);
+            case "d" -> currentX = Math.min(grid[0].length - 1, currentX + 1);
+            default -> {
+                printWriter.println("Invalid input. Please enter 'w', 's', 'a', 'd' or a number.");
+                printWriter.flush();
+            }
         }
     }
 
@@ -59,17 +84,19 @@ public class BoardView {
                     continue;
                 }
                 int value = cell.getValue();
+                boolean isSelected = row == currentY && col == currentX;
 
                 // Print cell value
                 if (value == 0) {
-                    printWriter.print(". ");
+//                    printWriter.print(". ");
+                    printWriter.print(isSelected ? "\u001B[36m. \u001B[0m" : ". ");
                 } else {
                     if (cell.isGiven())
-                        printWriter.print("\u001B[32m" + value + "\u001B[0m ");
+                        printWriter.print((isSelected ? "\u001B[36m" : "\u001B[32m") + value + "\u001B[0m ");
                     else if (!cell.isCorrect())
-                        printWriter.print("\u001B[33m" + value + "\u001B[0m ");
+                        printWriter.print((isSelected ? "\u001B[36m" : "\u001B[33m") + value + "\u001B[0m ");
                     else if (cell.isValid())
-                        printWriter.print("\u001B[34m" + value + "\u001B[0m ");
+                        printWriter.print((isSelected ? "\u001B[36m" : "\u001B[34m") + value + "\u001B[0m ");
                 }
             }
 
