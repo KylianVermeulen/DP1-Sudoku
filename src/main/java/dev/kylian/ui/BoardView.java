@@ -1,7 +1,10 @@
 package dev.kylian.ui;
 
 import dev.kylian.controller.GameController;
+import dev.kylian.domain.EditorMode;
 import dev.kylian.domain.composite.Cell;
+import dev.kylian.domain.strategy.HelpValueStrategy;
+import dev.kylian.domain.strategy.NormalValueStrategy;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
@@ -9,16 +12,23 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class BoardView {
+    private static final String RESET = "\u001B[0m";
+    private static final String CYAN = "\u001B[36m";
+    private static final String GREEN = "\u001B[32m";
+    private static final String YELLOW = "\u001B[33m";
+    private static final String BLUE = "\u001B[34m";
+
     private final GameController gameController;
     private final PrintWriter printWriter;
     private Cell[][] grid;
     private int boxSize;
     private int currentX = 0;
     private int currentY = 0;
+    private EditorMode editorMode = EditorMode.FINAL_NUMBER;
 
-    public BoardView(GameController gameController) {
+    public BoardView(GameController gameController, PrintWriter printWriter) {
         this.gameController = gameController;
-        this.printWriter = new PrintWriter(System.out);
+        this.printWriter = printWriter;
     }
 
     public void render() {
@@ -51,14 +61,23 @@ public class BoardView {
             case "s" -> currentY = Math.min(grid.length - 1, currentY + 1);
             case "a" -> currentX = Math.max(0, currentX - 1);
             case "d" -> currentX = Math.min(grid[0].length - 1, currentX + 1);
+            case "m" -> switchEditorMode(); // switch editor mode when 'm' is pressed
             default -> {
-                printWriter.println("Invalid input. Please enter 'w', 's', 'a', 'd' or a number.");
+                printWriter.println("Invalid input. Please enter 'w', 's', 'a', 'd', 'm' or a number.");
                 printWriter.flush();
             }
         }
     }
 
     private void printBoard() {
+        if (editorMode == EditorMode.HELP_NUMBER) {
+            printBoardFinalMode();
+        } else {
+            printBoardFinalMode();
+        }
+    }
+
+    private void printBoardFinalMode() {
         int rowSize = (boxSize == 9) ? 3 : (boxSize == 4) ? 2 : 3;
         int colSize = (boxSize == 9) ? 3 : 2;
 
@@ -86,17 +105,16 @@ public class BoardView {
                 int value = cell.getValue();
                 boolean isSelected = row == currentY && col == currentX;
 
-                // Print cell value
+                // Print cell
                 if (value == 0) {
-//                    printWriter.print(". ");
-                    printWriter.print(isSelected ? "\u001B[36m. \u001B[0m" : ". ");
+                    printWriter.print(isSelected ? CYAN + ". " + RESET : ". ");
                 } else {
                     if (cell.isGiven())
-                        printWriter.print((isSelected ? "\u001B[36m" : "\u001B[32m") + value + "\u001B[0m ");
+                        printWriter.print((isSelected ? CYAN : GREEN) + value + RESET + " ");
                     else if (!cell.isCorrect())
-                        printWriter.print((isSelected ? "\u001B[36m" : "\u001B[33m") + value + "\u001B[0m ");
+                        printWriter.print((isSelected ? CYAN : YELLOW) + value + RESET + " ");
                     else if (cell.isValid())
-                        printWriter.print((isSelected ? "\u001B[36m" : "\u001B[34m") + value + "\u001B[0m ");
+                        printWriter.print((isSelected ? CYAN : BLUE) + value + RESET + " ");
                 }
             }
 
@@ -125,5 +143,19 @@ public class BoardView {
 
     public void setBoxSize(int boxSize) {
         this.boxSize = boxSize;
+    }
+
+    private void switchEditorMode() {
+        switch (editorMode) {
+            case FINAL_NUMBER -> {
+                editorMode = EditorMode.HELP_NUMBER;
+                gameController.setValueStrategy(new HelpValueStrategy());
+            }
+            case HELP_NUMBER -> {
+                editorMode = EditorMode.FINAL_NUMBER;
+                gameController.setValueStrategy(new NormalValueStrategy());
+            }
+        }
+        printWriter.println("Switched to " + editorMode.name() + " mode");
     }
 }

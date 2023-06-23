@@ -2,8 +2,11 @@ package dev.kylian.controller;
 
 import dev.kylian.domain.SudokuGame;
 import dev.kylian.domain.composite.Cell;
+import dev.kylian.domain.strategy.ValueStrategy;
 import dev.kylian.domain.visitor.CreateCellGridVisitor;
 import dev.kylian.ui.BoardView;
+
+import java.io.PrintWriter;
 
 /**
  * Controller for handling game logic and updating the view.
@@ -11,17 +14,18 @@ import dev.kylian.ui.BoardView;
 public class GameController {
     private final SudokuGame game;
     private final BoardView boardView;
+    private ValueStrategy valueStrategy;
 
     /**
      * Constructs a GameController with a specific game type.
      *
      * @param type the type of game
      */
-    public GameController(String type) {
+    public GameController(String type, PrintWriter printWriter) {
         game = new SudokuGame();
         game.initializeNewGame(type);
 
-        this.boardView = new BoardView(this);
+        this.boardView = new BoardView(this, printWriter);
         viewUpdatedBoard();
     }
 
@@ -46,9 +50,10 @@ public class GameController {
      * @param value the value to be placed
      */
     public void actionPlaceValue(int x, int y, int value) {
+        game.getSudoku().setValueStrategy(valueStrategy);
         game.getSudoku().setValue(x, y, value);
         if (isWin()) {
-            System.out.println("You win!");
+            System.out.println("You won!");
             System.exit(0);
         }
         viewUpdatedBoard();
@@ -61,5 +66,13 @@ public class GameController {
      */
     public boolean isWin() {
         return game.getSudoku().isValid();
+    }
+
+    public ValueStrategy getValueStrategy() {
+        return valueStrategy;
+    }
+
+    public void setValueStrategy(ValueStrategy valueStrategy) {
+        this.valueStrategy = valueStrategy;
     }
 }
