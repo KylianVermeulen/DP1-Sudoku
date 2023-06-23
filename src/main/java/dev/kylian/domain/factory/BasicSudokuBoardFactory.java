@@ -25,7 +25,7 @@ public class BasicSudokuBoardFactory implements SudokuBoardFactory {
 
         System.out.println("line: " + line + " line.length(): " + line.length());
 
-        if (line.length() != 81 && line.length() != 36 && line.length() != 16) {
+        if (line.length() != 81) {
             throw new IllegalArgumentException("Invalid line length. Expected length: 81");
         }
 
