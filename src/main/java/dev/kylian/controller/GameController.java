@@ -1,12 +1,15 @@
 package dev.kylian.controller;
 
+import dev.kylian.domain.SudokuFileReader;
 import dev.kylian.domain.SudokuGame;
 import dev.kylian.domain.composite.Cell;
+import dev.kylian.domain.factory.*;
 import dev.kylian.domain.strategy.ValueStrategy;
 import dev.kylian.domain.visitor.CreateCellGridVisitor;
 import dev.kylian.ui.BoardView;
 
 import java.io.PrintWriter;
+import java.util.Map;
 
 /**
  * Controller for handling game logic and updating the view.
@@ -22,7 +25,14 @@ public class GameController {
      * @param type the type of game
      */
     public GameController(String type, PrintWriter printWriter) {
-        game = new SudokuGame();
+        SudokuFileReader reader = new SudokuFileReader();
+        game = new SudokuGame(Map.of(
+                "9x9", new BasicSudokuBoardFactory(reader),
+                "6x6", new SixBySixSudokuBoardFactory(reader),
+                "4x4", new FourByFourSudokuBoardFactory(reader),
+                "jigsaw", new JigsawSudokuBoardFactory(reader),
+                "samurai", new SamuraiSudokuBoardFactory(reader)
+        ));
         game.initializeNewGame(type);
 
         this.boardView = new BoardView(this, printWriter);

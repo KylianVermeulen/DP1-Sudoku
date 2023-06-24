@@ -1,26 +1,33 @@
 package dev.kylian.domain.factory;
 
+import dev.kylian.domain.SudokuFileReader;
 import dev.kylian.domain.composite.*;
 import dev.kylian.domain.strategy.ValueStrategy;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class SixBySixSudokuBoardFactory implements SudokuBoardFactory {
+    private final SudokuFileReader reader;
+
+    public SixBySixSudokuBoardFactory(SudokuFileReader reader) {
+        this.reader = reader;
+    }
 
     @Override
     public SudokuComponent createSudokuBoard(File file) {
-        String line = "";
+        String line;
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            line = bufferedReader.readLine();
-        } catch (Exception e) {
-            e.printStackTrace();
+        try {
+            line = reader.readFileToString(file);
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading file", e);
         }
 
         System.out.println("line: " + line + " line.length(): " + line.length());

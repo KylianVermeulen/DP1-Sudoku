@@ -1,31 +1,30 @@
 package dev.kylian.domain.factory;
 
+import dev.kylian.domain.SudokuFileReader;
 import dev.kylian.domain.composite.*;
 import dev.kylian.domain.strategy.ValueStrategy;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class SamuraiSudokuBoardFactory implements SudokuBoardFactory {
+    private final SudokuFileReader reader;
+
+    public SamuraiSudokuBoardFactory(SudokuFileReader reader) {
+        this.reader = reader;
+    }
 
     @Override
     public SudokuComponent createSudokuBoard(File file) {
+        String[] lines;
 
-        String[] lines = new String[5];
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            int i = 0;
-            String line;
-            while ((line = bufferedReader.readLine()) != null && i < 5) {
-                lines[i] = line;
-                i++;
-            }
+        try {
+            lines = reader.readFileToStrings(file);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error reading file", e);
         }
 
         String[] offsets = new String[5];
@@ -42,7 +41,7 @@ public class SamuraiSudokuBoardFactory implements SudokuBoardFactory {
             components.add(createBoardFromLine(line, Integer.parseInt(offsets[i].split(",")[0]), Integer.parseInt(offsets[i].split(",")[1])));
         }
 
-         return new BoardComponent(components, 9);
+        return new BoardComponent(components, 9);
     }
 
     private SudokuComponent createBoardFromLine(String line, int offsetX, int offsetY) {
@@ -61,8 +60,8 @@ public class SamuraiSudokuBoardFactory implements SudokuBoardFactory {
                 int index = row * 9 + col;
                 int value = Character.getNumericValue(line.charAt(index));
                 boolean isGiven = (value != 0);
-                Point point = new Point(col+offsetX, row+offsetY);
-                int box = getBoxNumber(col+offsetX, row+offsetY);
+                Point point = new Point(col + offsetX, row + offsetY);
+                int box = getBoxNumber(col + offsetX, row + offsetY);
                 Set<Integer> helpValues = new HashSet<>();
                 boolean isCorrect = true;
                 ValueStrategy valueStrategy = null;
@@ -78,8 +77,8 @@ public class SamuraiSudokuBoardFactory implements SudokuBoardFactory {
                 int index = row * 9 + col;
                 int value = Character.getNumericValue(line.charAt(index));
                 boolean isGiven = (value != 0);
-                Point point = new Point(col+offsetX, row+offsetY);
-                int box = getBoxNumber(col+offsetX, row+offsetY);
+                Point point = new Point(col + offsetX, row + offsetY);
+                int box = getBoxNumber(col + offsetX, row + offsetY);
                 Set<Integer> helpValues = new HashSet<>();
                 boolean isCorrect = true;
                 ValueStrategy valueStrategy = null;
@@ -98,8 +97,8 @@ public class SamuraiSudokuBoardFactory implements SudokuBoardFactory {
                     int index = row * 9 + col;
                     int value = Character.getNumericValue(line.charAt(index));
                     boolean isGiven = (value != 0);
-                    Point point = new Point(col+offsetX, row+offsetY);
-                    int boxNumber = getBoxNumber(col+offsetX, row+offsetY);
+                    Point point = new Point(col + offsetX, row + offsetY);
+                    int boxNumber = getBoxNumber(col + offsetX, row + offsetY);
                     Set<Integer> helpValues = new HashSet<>();
                     boolean isCorrect = true;
                     ValueStrategy valueStrategy = null;
@@ -109,7 +108,7 @@ public class SamuraiSudokuBoardFactory implements SudokuBoardFactory {
             components.add(new CellGroupComponent(cells));
         }
 
-         return new BoardComponent(components, 9);
+        return new BoardComponent(components, 9);
     }
 
     private int getBoxNumber(int col, int row) {
