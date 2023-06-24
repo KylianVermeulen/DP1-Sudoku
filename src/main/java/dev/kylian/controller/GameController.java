@@ -9,7 +9,6 @@ import dev.kylian.domain.visitor.CreateCellGridVisitor;
 import dev.kylian.ui.BoardView;
 
 import java.io.PrintWriter;
-import java.util.Map;
 
 /**
  * Controller for handling game logic and updating the view.
@@ -69,10 +68,6 @@ public class GameController {
      */
     public boolean isWin() {
         return game.getSudoku().isValid();
-    }
-
-    public ValueStrategy getValueStrategy() {
-        return valueStrategy;
     }
 
     public void setValueStrategy(ValueStrategy valueStrategy) {
