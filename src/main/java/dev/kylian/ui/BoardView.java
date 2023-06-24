@@ -45,7 +45,7 @@ public class BoardView {
                 // Numeric input, place the value in the cell.
                 gameController.actionPlaceValue(currentX, currentY, Integer.parseInt(input));
             } else {
-                // Direction input, update the current cell.
+                // Control input
                 updateCurrentCell(input);
                 printWriter.println("\033[H\033[2J");
                 printWriter.flush();
@@ -71,70 +71,20 @@ public class BoardView {
 
     private void printBoard() {
         if (editorMode == EditorMode.HELP_NUMBER) {
-            printBoardFinalMode();
+            var view = new HelpNumberBoardView(printWriter);
+            view.setGrid(grid);
+            view.setBoxSize(boxSize);
+            view.setCurrentX(currentX);
+            view.setCurrentY(currentY);
+            view.render();
         } else {
-            printBoardFinalMode();
+            var view = new FinalNumberBoardView(printWriter);
+            view.setGrid(grid);
+            view.setBoxSize(boxSize);
+            view.setCurrentX(currentX);
+            view.setCurrentY(currentY);
+            view.render();
         }
-    }
-
-    private void printBoardFinalMode() {
-        int rowSize = (boxSize == 9) ? 3 : (boxSize == 4) ? 2 : 3;
-        int colSize = (boxSize == 9) ? 3 : 2;
-
-        int size = grid.length;
-        int size2 = Arrays.stream(grid).max(Comparator.comparingInt(o -> o.length)).orElseThrow().length;
-
-        // Print horizontal line
-        printHorizontalLine(size);
-
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size2; col++) {
-                Cell cell = grid[row][col];
-
-                // Print vertical separator
-                if (col % colSize == 0) {
-                    printWriter.print("| ");
-                } else {
-                    printWriter.print("  ");
-                }
-
-                if (cell == null) {
-                    printWriter.print("  ");
-                    continue;
-                }
-                int value = cell.getValue();
-                boolean isSelected = row == currentY && col == currentX;
-
-                // Print cell
-                if (value == 0) {
-                    printWriter.print(isSelected ? CYAN + ". " + RESET : ". ");
-                } else {
-                    if (cell.isGiven())
-                        printWriter.print((isSelected ? CYAN : GREEN) + value + RESET + " ");
-                    else if (!cell.isCorrect())
-                        printWriter.print((isSelected ? CYAN : YELLOW) + value + RESET + " ");
-                    else if (cell.isValid())
-                        printWriter.print((isSelected ? CYAN : BLUE) + value + RESET + " ");
-                }
-            }
-
-            printWriter.println("|"); // End of row
-
-            // Print horizontal line
-            if ((row + 1) % rowSize == 0) {
-                printHorizontalLine(size);
-            }
-        }
-    }
-
-    private void printHorizontalLine(int size) {
-        int lineLength = size * 4 + size / 6;
-
-        for (int i = 0; i < lineLength; i++) {
-            printWriter.print("-");
-        }
-
-        printWriter.println();
     }
 
     public void setGrid(Cell[][] grid) {

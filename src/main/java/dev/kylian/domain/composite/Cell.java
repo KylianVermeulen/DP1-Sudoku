@@ -97,4 +97,16 @@ public class Cell implements SudokuComponent {
     public boolean isCorrect() {
         return isCorrect;
     }
+
+    public int getBox() {
+        return box;
+    }
+
+    public Set<Integer> getHelpValues() {
+        return helpValues;
+    }
+
+    public ValueStrategy getValueStrategy() {
+        return valueStrategy;
+    }
 }
