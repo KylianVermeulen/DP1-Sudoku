@@ -25,14 +25,7 @@ public class GameController {
      * @param type the type of game
      */
     public GameController(String type, PrintWriter printWriter) {
-        SudokuFileReader reader = new SudokuFileReader();
-        game = new SudokuGame(Map.of(
-                "9x9", new BasicSudokuBoardFactory(reader),
-                "6x6", new SixBySixSudokuBoardFactory(reader),
-                "4x4", new FourByFourSudokuBoardFactory(reader),
-                "jigsaw", new JigsawSudokuBoardFactory(reader),
-                "samurai", new SamuraiSudokuBoardFactory(reader)
-        ));
+        game = new SudokuGame(new BoardFactory());
         game.initializeNewGame(type);
 
         this.boardView = new BoardView(this, printWriter);

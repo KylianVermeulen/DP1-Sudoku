@@ -1,13 +1,13 @@
 package dev.kylian.domain;
 
 import dev.kylian.domain.composite.SudokuComponent;
+import dev.kylian.domain.factory.BoardFactory;
 import dev.kylian.domain.factory.SudokuBoardFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.File;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -20,9 +20,11 @@ public class SudokuGameTest {
     public void setUp() {
         // Create mock factories
         factory = Mockito.mock(SudokuBoardFactory.class);
-        Map<String, SudokuBoardFactory> factories = Map.of("test", factory);
 
-        game = new SudokuGame(factories);
+        BoardFactory boardFactory = Mockito.mock(BoardFactory.class);
+        when(boardFactory.getFactory(Mockito.anyString())).thenReturn(factory);
+
+        game = new SudokuGame(boardFactory);
     }
 
     @Test

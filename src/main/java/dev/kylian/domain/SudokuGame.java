@@ -1,20 +1,20 @@
 package dev.kylian.domain;
 
 import dev.kylian.domain.composite.SudokuComponent;
-import dev.kylian.domain.factory.*;
+import dev.kylian.domain.factory.BoardFactory;
+import dev.kylian.domain.factory.SudokuBoardFactory;
 import dev.kylian.domain.strategy.NormalValueStrategy;
 import dev.kylian.domain.strategy.ValueStrategy;
 
 import java.io.File;
-import java.util.Map;
 import java.util.Random;
 
 public class SudokuGame {
+    private final BoardFactory boardFactory;
     private SudokuComponent sudoku;
-    private final Map<String, SudokuBoardFactory> factories;
 
-    public SudokuGame(Map<String, SudokuBoardFactory> factories) {
-        this.factories = factories;
+    public SudokuGame(BoardFactory boardFactory) {
+        this.boardFactory = boardFactory;
     }
 
     public void initializeNewGame(String type) {
@@ -34,6 +34,6 @@ public class SudokuGame {
     }
 
     private SudokuBoardFactory getFactory(String type) {
-        return factories.get(type);
+        return boardFactory.getFactory(type);
     }
 }
