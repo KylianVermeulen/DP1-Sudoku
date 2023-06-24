@@ -4,7 +4,9 @@ import dev.kylian.domain.strategy.ValueStrategy;
 import dev.kylian.domain.visitor.Visitor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -69,6 +71,11 @@ public class BoardComponentTest {
     public void testSetValue() {
         boardComponent.setValue(0, 0, 2);
         assertEquals(2, cells.get(0).getValue());
+    }
+
+    @Test
+    public void testSetInvalidValue() {
+        assertThrows(IllegalArgumentException.class, () -> boardComponent.setValue(0, 0, 3));
     }
 
     @Test

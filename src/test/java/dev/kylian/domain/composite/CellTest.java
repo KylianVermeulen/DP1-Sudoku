@@ -148,4 +148,22 @@ public class CellTest {
 
         assertFalse(cell.getHelpValues().contains(3));
     }
+
+    @Test
+    public void testIsGiven() {
+        Cell cell = new Cell(1, new Point(1,1), 1, null, true, true, null);
+        assertTrue(cell.isGiven());
+    }
+
+    @Test
+    public void testisCorrect() {
+        Cell cell = new Cell(1, new Point(1,1), 1, null, true, true, null);
+        assertTrue(cell.isCorrect());
+    }
+
+    @Test
+    public void testGetBox() {
+        Cell cell = new Cell(1, new Point(1,1), 1, null, true, true, null);
+        assertEquals(1, cell.getBox());
+    }
 }
