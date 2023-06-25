@@ -1,17 +1,12 @@
 package dev.kylian.ui;
 
-import dev.kylian.controller.GameController;
-import dev.kylian.domain.EditorMode;
 import dev.kylian.domain.composite.Cell;
-import dev.kylian.domain.strategy.HelpValueStrategy;
-import dev.kylian.domain.strategy.NormalValueStrategy;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Scanner;
 
-public class FinalNumberBoardView {
+public class BoxNumberBoardView {
     private static final String RESET = "\u001B[0m";
     private static final String CYAN = "\u001B[36m";
     private static final String GREEN = "\u001B[32m";
@@ -24,7 +19,7 @@ public class FinalNumberBoardView {
     private int currentX = 0;
     private int currentY = 0;
 
-    public FinalNumberBoardView(PrintWriter printWriter) {
+    public BoxNumberBoardView(PrintWriter printWriter) {
         this.printWriter = printWriter;
     }
 
@@ -58,20 +53,22 @@ public class FinalNumberBoardView {
                     continue;
                 }
 
-                int value = cell.getValue();
-                boolean isSelected = row == currentY && col == currentX;
-
-                // Print cell
-                if (value == 0) {
-                    printWriter.print(isSelected ? CYAN + ". " + RESET : ". ");
-                } else {
-                    if (cell.isGiven())
-                        printWriter.print((isSelected ? CYAN : GREEN) + value + RESET + " ");
-                    else if (!cell.isCorrect())
-                        printWriter.print((isSelected ? CYAN : YELLOW) + value + RESET + " ");
-                    else if (cell.isValid())
-                        printWriter.print((isSelected ? CYAN : BLUE) + value + RESET + " ");
-                }
+                int value = cell.getBox();
+                printWriter.print(BLUE + value + RESET + " ");
+//                int value = cell.getValue();
+//                boolean isSelected = row == currentY && col == currentX;
+//
+//                // Print cell
+//                if (value == 0) {
+//                    printWriter.print(isSelected ? CYAN + ". " + RESET : ". ");
+//                } else {
+//                    if (cell.isGiven())
+//                        printWriter.print((isSelected ? CYAN : GREEN) + value + RESET + " ");
+//                    else if (!cell.isCorrect())
+//                        printWriter.print((isSelected ? CYAN : YELLOW) + value + RESET + " ");
+//                    else if (cell.isValid())
+//                        printWriter.print((isSelected ? CYAN : BLUE) + value + RESET + " ");
+//                }
             }
 
             printWriter.println("|"); // End of row
