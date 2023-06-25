@@ -33,11 +33,21 @@ public class CellTest {
     }
 
     @Test
-    public void testIsValid() {
+    public void testIsNotValid() {
         Set<Integer> helpValues = new HashSet<>();
         ValueStrategy strategy = (cell, value) -> {
         };
         Cell cell = new Cell(0, new Point(1, 1), 1, helpValues, true, true, strategy);
+
+        assertFalse(cell.isValid());
+    }
+
+    @Test
+    public void testIsValid() {
+        Set<Integer> helpValues = new HashSet<>();
+        ValueStrategy strategy = (cell, value) -> {
+        };
+        Cell cell = new Cell(1, new Point(1, 1), 1, helpValues, true, true, strategy);
 
         assertFalse(cell.isValid());
     }
