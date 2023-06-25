@@ -68,7 +68,7 @@ public class SamuraiSudokuBoardFactory implements SudokuBoardFactory {
         for (int row = 0; row < SUDOKU_SIZE; row++) {
             List<Cell> cells = new ArrayList<>();
             for (int col = 0; col < SUDOKU_SIZE; col++) {
-                cells.add(createCell(line, col+offsetX, row+offsetY));
+                cells.add(createCell(line, col, row, offsetX, offsetY));
             }
             components.add(new CellGroupComponent(cells));
         }
@@ -78,7 +78,7 @@ public class SamuraiSudokuBoardFactory implements SudokuBoardFactory {
         for (int col = 0; col < SUDOKU_SIZE; col++) {
             List<Cell> cells = new ArrayList<>();
             for (int row = 0; row < SUDOKU_SIZE; row++) {
-                cells.add(createCell(line, col+offsetX, row+offsetY));
+                cells.add(createCell(line, col, row, offsetX, offsetY));
             }
             components.add(new CellGroupComponent(cells));
         }
@@ -91,19 +91,19 @@ public class SamuraiSudokuBoardFactory implements SudokuBoardFactory {
             int startCol = box % 3 * 3;
             for (int row = startRow; row < startRow + 3; row++) {
                 for (int col = startCol; col < startCol + 3; col++) {
-                    cells.add(createCell(line, col+offsetX, row+offsetY));
+                    cells.add(createCell(line, col, row, offsetX, offsetY));
                 }
             }
             components.add(new CellGroupComponent(cells));
         }
     }
 
-    private Cell createCell(String line, int col, int row) {
+    private Cell createCell(String line, int col, int row, int offsetX, int offsetY) {
         int index = row * SUDOKU_SIZE + col;
         int value = Character.getNumericValue(line.charAt(index));
         boolean isGiven = (value != 0);
-        Point point = new Point(col, row);
-        int box = getBoxNumber(col, row);
+        Point point = new Point(col+offsetX, row+offsetY);
+        int box = getBoxNumber(col+offsetX, row+offsetY);
         Set<Integer> helpValues = new HashSet<>();
         boolean isCorrect = true;
         return new Cell(value, point, box, helpValues, isGiven, isCorrect, null);
