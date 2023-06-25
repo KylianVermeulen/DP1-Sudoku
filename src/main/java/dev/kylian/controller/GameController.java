@@ -1,9 +1,8 @@
 package dev.kylian.controller;
 
-import dev.kylian.domain.SudokuFileReader;
 import dev.kylian.domain.SudokuGame;
 import dev.kylian.domain.composite.Cell;
-import dev.kylian.domain.factory.*;
+import dev.kylian.domain.factory.BoardFactory;
 import dev.kylian.domain.strategy.ValueStrategy;
 import dev.kylian.domain.visitor.CreateCellGridVisitor;
 import dev.kylian.ui.BoardView;

@@ -2,10 +2,8 @@ package dev.kylian.domain.factory;
 
 import dev.kylian.domain.SudokuFileReader;
 import dev.kylian.domain.composite.*;
-import dev.kylian.domain.strategy.ValueStrategy;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

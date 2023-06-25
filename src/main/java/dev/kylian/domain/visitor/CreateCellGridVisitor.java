@@ -7,9 +7,9 @@ import dev.kylian.domain.composite.CellGroupComponent;
 import java.util.HashSet;
 
 public class CreateCellGridVisitor implements Visitor {
+    private final HashSet<Cell> cells;
     private int maxX;
     private int maxY;
-    private final HashSet<Cell> cells;
     private int boxSize;
 
     public CreateCellGridVisitor() {
@@ -19,7 +19,7 @@ public class CreateCellGridVisitor implements Visitor {
     }
 
     public Cell[][] getGrid() {
-        Cell[][] grid = new Cell[maxY+1][maxX+1];
+        Cell[][] grid = new Cell[maxY + 1][maxX + 1];
         for (Cell cell : cells) {
             grid[cell.getPoint().y()][cell.getPoint().x()] = cell;
         }

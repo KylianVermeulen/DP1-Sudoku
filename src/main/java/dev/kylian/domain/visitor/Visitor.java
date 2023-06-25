@@ -6,6 +6,8 @@ import dev.kylian.domain.composite.CellGroupComponent;
 
 public interface Visitor {
     void visit(Cell component);
+
     void visit(CellGroupComponent component);
+
     void visit(BoardComponent component);
 }

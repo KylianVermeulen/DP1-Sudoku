@@ -53,11 +53,6 @@ public class Cell implements SudokuComponent {
     }
 
     @Override
-    public void setValueStrategy(ValueStrategy strategy) {
-        this.valueStrategy = strategy;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -108,5 +103,10 @@ public class Cell implements SudokuComponent {
 
     public ValueStrategy getValueStrategy() {
         return valueStrategy;
+    }
+
+    @Override
+    public void setValueStrategy(ValueStrategy strategy) {
+        this.valueStrategy = strategy;
     }
 }

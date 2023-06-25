@@ -1,15 +1,10 @@
 package dev.kylian.ui;
 
-import dev.kylian.controller.GameController;
-import dev.kylian.domain.EditorMode;
 import dev.kylian.domain.composite.Cell;
-import dev.kylian.domain.strategy.HelpValueStrategy;
-import dev.kylian.domain.strategy.NormalValueStrategy;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Scanner;
 
 public class FinalNumberBoardView {
     private static final String RESET = "\u001B[0m";

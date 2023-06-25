@@ -14,7 +14,7 @@ public class CellTest {
     public void testSetValueWhenIsGiven() {
         Set<Integer> helpValues = new HashSet<>();
         ValueStrategy strategy = (cell, value) -> cell.changeValue(value);
-        Cell cell = new Cell(1, new Point(1,1), 1, helpValues, true, true, strategy);
+        Cell cell = new Cell(1, new Point(1, 1), 1, helpValues, true, true, strategy);
 
         cell.setValue(1, 1, 2);
 
@@ -25,7 +25,7 @@ public class CellTest {
     public void testSetValueWhenNotGiven() {
         Set<Integer> helpValues = new HashSet<>();
         ValueStrategy strategy = (cell, value) -> cell.changeValue(value);
-        Cell cell = new Cell(1, new Point(1,1), 1, helpValues, false, true, strategy);
+        Cell cell = new Cell(1, new Point(1, 1), 1, helpValues, false, true, strategy);
 
         cell.setValue(1, 1, 5);
 
@@ -35,8 +35,9 @@ public class CellTest {
     @Test
     public void testIsValid() {
         Set<Integer> helpValues = new HashSet<>();
-        ValueStrategy strategy = (cell, value) -> {};
-        Cell cell = new Cell(0, new Point(1,1), 1, helpValues, true, true, strategy);
+        ValueStrategy strategy = (cell, value) -> {
+        };
+        Cell cell = new Cell(0, new Point(1, 1), 1, helpValues, true, true, strategy);
 
         assertFalse(cell.isValid());
     }
@@ -45,10 +46,12 @@ public class CellTest {
     public void testEquals() {
         Set<Integer> helpValues1 = new HashSet<>();
         Set<Integer> helpValues2 = new HashSet<>();
-        ValueStrategy strategy1 = (cell, value) -> {};
-        ValueStrategy strategy2 = (cell, value) -> {};
-        Cell cell1 = new Cell(1, new Point(1,1), 1, helpValues1, true, true, strategy1);
-        Cell cell2 = new Cell(1, new Point(1,1), 1, helpValues2, true, true, strategy2);
+        ValueStrategy strategy1 = (cell, value) -> {
+        };
+        ValueStrategy strategy2 = (cell, value) -> {
+        };
+        Cell cell1 = new Cell(1, new Point(1, 1), 1, helpValues1, true, true, strategy1);
+        Cell cell2 = new Cell(1, new Point(1, 1), 1, helpValues2, true, true, strategy2);
 
         assertEquals(cell1, cell2);
     }
@@ -56,8 +59,9 @@ public class CellTest {
     @Test
     public void testChangeValue() {
         Set<Integer> helpValues = new HashSet<>();
-        ValueStrategy strategy = (cell, value) -> {};
-        Cell cell = new Cell(1, new Point(1,1), 1, helpValues, true, true, strategy);
+        ValueStrategy strategy = (cell, value) -> {
+        };
+        Cell cell = new Cell(1, new Point(1, 1), 1, helpValues, true, true, strategy);
 
         cell.changeValue(2);
 
@@ -67,8 +71,9 @@ public class CellTest {
     @Test
     public void testChangeHelpValue() {
         Set<Integer> helpValues = new HashSet<>();
-        ValueStrategy strategy = (cell, value) -> {};
-        Cell cell = new Cell(1, new Point(1,1), 1, helpValues, true, true, strategy);
+        ValueStrategy strategy = (cell, value) -> {
+        };
+        Cell cell = new Cell(1, new Point(1, 1), 1, helpValues, true, true, strategy);
 
         cell.changeHelpValue(2);
 
@@ -92,8 +97,9 @@ public class CellTest {
             }
         };
         Set<Integer> helpValues = new HashSet<>();
-        ValueStrategy strategy = (cell, value) -> {};
-        Cell cell = new Cell(1, new Point(1,1), 1, helpValues, true, true, strategy);
+        ValueStrategy strategy = (cell, value) -> {
+        };
+        Cell cell = new Cell(1, new Point(1, 1), 1, helpValues, true, true, strategy);
 
         cell.accept(visitor);
 
@@ -104,8 +110,9 @@ public class CellTest {
     public void testCopy() {
         Set<Integer> helpValues = new HashSet<>();
         helpValues.add(2);
-        ValueStrategy strategy = (cell, value) -> {};
-        Cell originalCell = new Cell(1, new Point(1,1), 1, helpValues, true, true, strategy);
+        ValueStrategy strategy = (cell, value) -> {
+        };
+        Cell originalCell = new Cell(1, new Point(1, 1), 1, helpValues, true, true, strategy);
 
         Cell copiedCell = originalCell.copy();
 
@@ -117,10 +124,12 @@ public class CellTest {
     public void testHashCode() {
         Set<Integer> helpValues1 = new HashSet<>();
         Set<Integer> helpValues2 = new HashSet<>();
-        ValueStrategy strategy1 = (cell, value) -> {};
-        ValueStrategy strategy2 = (cell, value) -> {};
-        Cell cell1 = new Cell(1, new Point(1,1), 1, helpValues1, true, true, strategy1);
-        Cell cell2 = new Cell(1, new Point(1,1), 1, helpValues2, true, true, strategy2);
+        ValueStrategy strategy1 = (cell, value) -> {
+        };
+        ValueStrategy strategy2 = (cell, value) -> {
+        };
+        Cell cell1 = new Cell(1, new Point(1, 1), 1, helpValues1, true, true, strategy1);
+        Cell cell2 = new Cell(1, new Point(1, 1), 1, helpValues2, true, true, strategy2);
 
         assertEquals(cell1.hashCode(), cell2.hashCode());
     }
@@ -129,7 +138,7 @@ public class CellTest {
     public void testSetValueStrategy() {
         Set<Integer> helpValues = new HashSet<>();
         ValueStrategy strategy = (cell, value) -> cell.changeValue(value);
-        Cell cell = new Cell(1, new Point(1,1), 1, helpValues, false, true, null);
+        Cell cell = new Cell(1, new Point(1, 1), 1, helpValues, false, true, null);
 
         cell.setValueStrategy(strategy);
         cell.setValue(1, 1, 5);
@@ -141,8 +150,9 @@ public class CellTest {
     public void testChangeHelpValueRemoval() {
         Set<Integer> helpValues = new HashSet<>();
         helpValues.add(3);
-        ValueStrategy strategy = (cell, value) -> {};
-        Cell cell = new Cell(1, new Point(1,1), 1, helpValues, true, true, strategy);
+        ValueStrategy strategy = (cell, value) -> {
+        };
+        Cell cell = new Cell(1, new Point(1, 1), 1, helpValues, true, true, strategy);
 
         cell.changeHelpValue(3);
 
@@ -151,19 +161,19 @@ public class CellTest {
 
     @Test
     public void testIsGiven() {
-        Cell cell = new Cell(1, new Point(1,1), 1, null, true, true, null);
+        Cell cell = new Cell(1, new Point(1, 1), 1, null, true, true, null);
         assertTrue(cell.isGiven());
     }
 
     @Test
     public void testisCorrect() {
-        Cell cell = new Cell(1, new Point(1,1), 1, null, true, true, null);
+        Cell cell = new Cell(1, new Point(1, 1), 1, null, true, true, null);
         assertTrue(cell.isCorrect());
     }
 
     @Test
     public void testGetBox() {
-        Cell cell = new Cell(1, new Point(1,1), 1, null, true, true, null);
+        Cell cell = new Cell(1, new Point(1, 1), 1, null, true, true, null);
         assertEquals(1, cell.getBox());
     }
 }

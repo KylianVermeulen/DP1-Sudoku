@@ -4,9 +4,7 @@ import dev.kylian.domain.strategy.ValueStrategy;
 import dev.kylian.domain.visitor.Visitor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,8 +21,8 @@ public class BoardComponentTest {
     public void setup() {
         components = new ArrayList<>();
         cells = new ArrayList<>();
-        cells.add(new Cell(1, new Point(0,0), 0, new HashSet<>(), false, true, null));
-        cells.add(new Cell(2, new Point(1,0), 0, new HashSet<>(), false, true, null));
+        cells.add(new Cell(1, new Point(0, 0), 0, new HashSet<>(), false, true, null));
+        cells.add(new Cell(2, new Point(1, 0), 0, new HashSet<>(), false, true, null));
         components.add(new CellGroupComponent(cells));
         size = 2;
         boardComponent = new BoardComponent(components, size);
@@ -58,10 +56,12 @@ public class BoardComponentTest {
             }
 
             @Override
-            public void visit(CellGroupComponent component) {}
+            public void visit(CellGroupComponent component) {
+            }
 
             @Override
-            public void visit(BoardComponent component) {}
+            public void visit(BoardComponent component) {
+            }
         });
 
         assertEquals(3, cells.get(0).getValue());

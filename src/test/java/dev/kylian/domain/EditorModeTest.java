@@ -17,7 +17,7 @@ public class EditorModeTest {
         // The second value is FINAL_NUMBER
         assertEquals(EditorMode.FINAL_NUMBER, EditorMode.values()[1]);
 
-         // The third value is BOX_NUMBER
+        // The third value is BOX_NUMBER
         assertEquals(EditorMode.BOX_NUMBER, EditorMode.values()[2]);
     }
 }

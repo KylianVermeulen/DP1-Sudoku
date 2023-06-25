@@ -64,7 +64,7 @@ public class SamuraiSudokuBoardFactory implements SudokuBoardFactory {
         }
     }
 
-     private void createRowComponents(String line, List<SudokuComponent> components, int offsetX, int offsetY) {
+    private void createRowComponents(String line, List<SudokuComponent> components, int offsetX, int offsetY) {
         for (int row = 0; row < SUDOKU_SIZE; row++) {
             List<Cell> cells = new ArrayList<>();
             for (int col = 0; col < SUDOKU_SIZE; col++) {
@@ -102,8 +102,8 @@ public class SamuraiSudokuBoardFactory implements SudokuBoardFactory {
         int index = row * SUDOKU_SIZE + col;
         int value = Character.getNumericValue(line.charAt(index));
         boolean isGiven = (value != 0);
-        Point point = new Point(col+offsetX, row+offsetY);
-        int box = getBoxNumber(col+offsetX, row+offsetY);
+        Point point = new Point(col + offsetX, row + offsetY);
+        int box = getBoxNumber(col + offsetX, row + offsetY);
         Set<Integer> helpValues = new HashSet<>();
         boolean isCorrect = true;
         return new Cell(value, point, box, helpValues, isGiven, isCorrect, null);

@@ -1,6 +1,5 @@
 package dev.kylian.domain.composite;
 
-import dev.kylian.domain.strategy.NormalValueStrategy;
 import dev.kylian.domain.strategy.ValueStrategy;
 import dev.kylian.domain.visitor.Visitor;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,8 +18,8 @@ public class CellGroupComponentTest {
     @BeforeEach
     public void setup() {
         cells = new ArrayList<>();
-        cells.add(new Cell(1, new Point(0,0), 0, new HashSet<>(), false, true, null));
-        cells.add(new Cell(2, new Point(1,0), 0, new HashSet<>(), false, true, null));
+        cells.add(new Cell(1, new Point(0, 0), 0, new HashSet<>(), false, true, null));
+        cells.add(new Cell(2, new Point(1, 0), 0, new HashSet<>(), false, true, null));
         cellGroupComponent = new CellGroupComponent(cells);
     }
 
@@ -51,10 +50,12 @@ public class CellGroupComponentTest {
             }
 
             @Override
-            public void visit(CellGroupComponent component) {}
+            public void visit(CellGroupComponent component) {
+            }
 
             @Override
-            public void visit(BoardComponent component) {}
+            public void visit(BoardComponent component) {
+            }
         });
 
         assertEquals(3, cells.get(0).getValue());

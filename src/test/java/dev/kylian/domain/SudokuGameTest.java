@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.when;
 
 public class SudokuGameTest {

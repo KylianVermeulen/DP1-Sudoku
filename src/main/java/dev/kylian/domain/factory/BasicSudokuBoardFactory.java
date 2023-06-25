@@ -46,7 +46,7 @@ public class BasicSudokuBoardFactory implements SudokuBoardFactory {
         }
     }
 
-     private void createRowComponents(String line, List<SudokuComponent> components) {
+    private void createRowComponents(String line, List<SudokuComponent> components) {
         for (int row = 0; row < SUDOKU_SIZE; row++) {
             List<Cell> cells = new ArrayList<>();
             for (int col = 0; col < SUDOKU_SIZE; col++) {
