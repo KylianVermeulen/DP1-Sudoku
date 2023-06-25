@@ -57,20 +57,23 @@ public class FinalNumberBoardView {
                     printWriter.print("  ");
                     continue;
                 }
-                int value = cell.getValue();
-                boolean isSelected = row == currentY && col == currentX;
 
-                // Print cell
-                if (value == 0) {
-                    printWriter.print(isSelected ? CYAN + ". " + RESET : ". ");
-                } else {
-                    if (cell.isGiven())
-                        printWriter.print((isSelected ? CYAN : GREEN) + value + RESET + " ");
-                    else if (!cell.isCorrect())
-                        printWriter.print((isSelected ? CYAN : YELLOW) + value + RESET + " ");
-                    else if (cell.isValid())
-                        printWriter.print((isSelected ? CYAN : BLUE) + value + RESET + " ");
-                }
+                int value = cell.getBox();
+                printWriter.print(BLUE + value + RESET + " ");
+//                int value = cell.getValue();
+//                boolean isSelected = row == currentY && col == currentX;
+//
+//                // Print cell
+//                if (value == 0) {
+//                    printWriter.print(isSelected ? CYAN + ". " + RESET : ". ");
+//                } else {
+//                    if (cell.isGiven())
+//                        printWriter.print((isSelected ? CYAN : GREEN) + value + RESET + " ");
+//                    else if (!cell.isCorrect())
+//                        printWriter.print((isSelected ? CYAN : YELLOW) + value + RESET + " ");
+//                    else if (cell.isValid())
+//                        printWriter.print((isSelected ? CYAN : BLUE) + value + RESET + " ");
+//                }
             }
 
             printWriter.println("|"); // End of row

@@ -4,9 +4,7 @@ import dev.kylian.domain.SudokuFileReader;
 import dev.kylian.domain.composite.*;
 import dev.kylian.domain.strategy.ValueStrategy;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,79 +20,73 @@ public class FourByFourSudokuBoardFactory implements SudokuBoardFactory {
 
     @Override
     public SudokuComponent createSudokuBoard(File file) {
-        String line;
-
-        try {
-            line = reader.readFileToString(file);
-        } catch (IOException e) {
-            throw new RuntimeException("Error reading file", e);
-        }
+        String line = readSudokuFile(file);
 
         System.out.println("line: " + line + " line.length(): " + line.length());
-
         if (line.length() != 16) {
             throw new IllegalArgumentException("Invalid line length. Expected length: 81");
         }
 
         List<SudokuComponent> components = new ArrayList<>();
 
+        createRowComponents(line, components);
+        createColumnComponents(line, components);
+        createBoxComponents(line, components);
 
-        // Create row components
+        return new BoardComponent(components, 4);
+    }
+
+    private String readSudokuFile(File file) {
+        try {
+            return reader.readFileToString(file);
+        } catch (Exception e) {
+            throw new RuntimeException("Error reading file", e);
+        }
+    }
+
+    private void createRowComponents(String line, List<SudokuComponent> components) {
         for (int row = 0; row < 4; row++) {
             List<Cell> cells = new ArrayList<>();
             for (int col = 0; col < 4; col++) {
-                int index = row * 4 + col;
-                int value = Character.getNumericValue(line.charAt(index));
-                boolean isGiven = (value != 0);
-                Point point = new Point(col, row);
-                int box = getBoxNumber(col, row);
-                Set<Integer> helpValues = new HashSet<>();
-                boolean isCorrect = true;
-                ValueStrategy valueStrategy = null;
-                cells.add(new Cell(value, point, box, helpValues, isGiven, isCorrect, valueStrategy));
+                cells.add(createCell(line, col, row));
             }
             components.add(new CellGroupComponent(cells));
         }
+    }
 
-        // Create column components
+    private void createColumnComponents(String line, List<SudokuComponent> components) {
         for (int col = 0; col < 4; col++) {
             List<Cell> cells = new ArrayList<>();
             for (int row = 0; row < 4; row++) {
-                int index = row * 4 + col;
-                int value = Character.getNumericValue(line.charAt(index));
-                boolean isGiven = (value != 0);
-                Point point = new Point(col, row);
-                int box = getBoxNumber(col, row);
-                Set<Integer> helpValues = new HashSet<>();
-                boolean isCorrect = true;
-                ValueStrategy valueStrategy = null;
-                cells.add(new Cell(value, point, box, helpValues, isGiven, isCorrect, valueStrategy));
+                cells.add(createCell(line, col, row));
             }
             components.add(new CellGroupComponent(cells));
         }
+    }
 
-        // Create box components
+    private void createBoxComponents(String line, List<SudokuComponent> components) {
         for (int box = 0; box < 4; box++) {
             List<Cell> cells = new ArrayList<>();
             int startRow = box / 2 * 2;
             int startCol = box % 2 * 2;
             for (int row = startRow; row < startRow + 2; row++) {
                 for (int col = startCol; col < startCol + 2; col++) {
-                    int index = row * 4 + col;
-                    int value = Character.getNumericValue(line.charAt(index));
-                    boolean isGiven = (value != 0);
-                    Point point = new Point(col, row);
-                    int boxNumber = getBoxNumber(col, row);
-                    Set<Integer> helpValues = new HashSet<>();
-                    boolean isCorrect = true;
-                    ValueStrategy valueStrategy = null;
-                    cells.add(new Cell(value, point, boxNumber, helpValues, isGiven, isCorrect, valueStrategy));
+                    cells.add(createCell(line, col, row));
                 }
             }
             components.add(new CellGroupComponent(cells));
         }
+    }
 
-        return new BoardComponent(components, 4);
+    private Cell createCell(String line, int col, int row) {
+        int index = row * 4 + col;
+        int value = Character.getNumericValue(line.charAt(index));
+        boolean isGiven = (value != 0);
+        Point point = new Point(col, row);
+        int boxNumber = getBoxNumber(col, row);
+        Set<Integer> helpValues = new HashSet<>();
+        boolean isCorrect = true;
+        return new Cell(value, point, boxNumber, helpValues, isGiven, isCorrect, null);
     }
 
     private int getBoxNumber(int col, int row) {
