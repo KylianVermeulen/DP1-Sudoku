@@ -9,12 +9,15 @@ public class EditorModeTest {
     @Test
     public void testEnumValues() {
         // There are only two values in the enum
-        assertEquals(2, EditorMode.values().length);
+        assertEquals(3, EditorMode.values().length);
 
         // The first value is HELP_NUMBER
         assertEquals(EditorMode.HELP_NUMBER, EditorMode.values()[0]);
 
         // The second value is FINAL_NUMBER
         assertEquals(EditorMode.FINAL_NUMBER, EditorMode.values()[1]);
+
+         // The third value is BOX_NUMBER
+        assertEquals(EditorMode.BOX_NUMBER, EditorMode.values()[2]);
     }
 }

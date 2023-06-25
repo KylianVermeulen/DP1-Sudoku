@@ -35,11 +35,6 @@ public class HelpNumberBoardView {
         int sizeY = grid.length;
         int sizeX = Arrays.stream(grid).max(Comparator.comparingInt(o -> o.length)).orElseThrow().length;
 
-        printWriter.println("sizeY: " + sizeY);
-        printWriter.println("rowSize: " + rowSize);
-        printWriter.println("sizeX: " + sizeX);
-        printWriter.println("colSize: " + colSize);
-
         // Print horizontal line
         printHorizontalLine(sizeX);
 

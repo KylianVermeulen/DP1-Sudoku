@@ -7,17 +7,9 @@ import dev.kylian.domain.strategy.HelpValueStrategy;
 import dev.kylian.domain.strategy.NormalValueStrategy;
 
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class BoardView {
-    private static final String RESET = "\u001B[0m";
-    private static final String CYAN = "\u001B[36m";
-    private static final String GREEN = "\u001B[32m";
-    private static final String YELLOW = "\u001B[33m";
-    private static final String BLUE = "\u001B[34m";
-
     private final GameController gameController;
     private final PrintWriter printWriter;
     private Cell[][] grid;
@@ -77,6 +69,13 @@ public class BoardView {
             view.setCurrentX(currentX);
             view.setCurrentY(currentY);
             view.render();
+        } else if (editorMode == EditorMode.BOX_NUMBER) {
+            var view = new BoxNumberBoardView(printWriter);
+            view.setGrid(grid);
+            view.setBoxSize(boxSize);
+            view.setCurrentX(currentX);
+            view.setCurrentY(currentY);
+            view.render();
         } else {
             var view = new FinalNumberBoardView(printWriter);
             view.setGrid(grid);
@@ -102,6 +101,10 @@ public class BoardView {
                 gameController.setValueStrategy(new HelpValueStrategy());
             }
             case HELP_NUMBER -> {
+                editorMode = EditorMode.BOX_NUMBER;
+                gameController.setValueStrategy(new NormalValueStrategy());
+            }
+            case BOX_NUMBER -> {
                 editorMode = EditorMode.FINAL_NUMBER;
                 gameController.setValueStrategy(new NormalValueStrategy());
             }
