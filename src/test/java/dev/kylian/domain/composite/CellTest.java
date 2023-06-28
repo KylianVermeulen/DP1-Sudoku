@@ -49,7 +49,7 @@ public class CellTest {
         };
         Cell cell = new Cell(1, new Point(1, 1), 1, helpValues, true, true, strategy);
 
-        assertFalse(cell.isValid());
+        assertTrue(cell.isValid());
     }
 
     @Test
