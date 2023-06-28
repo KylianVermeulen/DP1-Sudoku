@@ -1,10 +1,13 @@
 package dev.kylian.controller;
 
 import dev.kylian.domain.SudokuGame;
+import dev.kylian.domain.composite.BoardComponent;
 import dev.kylian.domain.composite.Cell;
+import dev.kylian.domain.composite.CellGroupComponent;
 import dev.kylian.domain.factory.BoardFactory;
 import dev.kylian.domain.strategy.ValueStrategy;
 import dev.kylian.domain.visitor.CreateCellGridVisitor;
+import dev.kylian.domain.visitor.Visitor;
 import dev.kylian.ui.BoardView;
 
 import java.io.PrintWriter;
@@ -52,7 +55,11 @@ public class GameController {
      */
     public void actionPlaceValue(int x, int y, int value) {
         game.getSudoku().setValueStrategy(valueStrategy);
-        game.getSudoku().setValue(x, y, value);
+        try {
+            game.getSudoku().setValue(x, y, value);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
         if (isWin()) {
             System.out.println("You won!");
             System.exit(0);
@@ -71,5 +78,24 @@ public class GameController {
 
     public void setValueStrategy(ValueStrategy valueStrategy) {
         this.valueStrategy = valueStrategy;
+    }
+
+
+    /**
+     * Unfinished method for checking if all the cells are valid
+     * @hidden
+     */
+    public void actionCheckForIncorrectValues() {
+        game.getSudoku().accept(new Visitor() {
+            @Override
+            public void visit(Cell component) {
+            }
+            @Override
+            public void visit(CellGroupComponent component) {
+            }
+            @Override
+            public void visit(BoardComponent component) {
+            }
+        });
     }
 }

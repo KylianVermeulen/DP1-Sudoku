@@ -54,8 +54,9 @@ public class BoardView {
             case "a" -> currentX = Math.max(0, currentX - 1);
             case "d" -> currentX = Math.min(grid[0].length - 1, currentX + 1);
             case "m" -> switchEditorMode(); // switch editor mode when 'm' is pressed
+            case "c" -> check();
             default -> {
-                printWriter.println("Invalid input. Please enter 'w', 's', 'a', 'd', 'm' or a number.");
+                printWriter.println("Invalid input. Please enter 'w', 's', 'a', 'd', 'm', 'c' or a number.");
                 printWriter.flush();
             }
         }
@@ -110,5 +111,9 @@ public class BoardView {
             }
         }
         printWriter.println("Switched to " + editorMode.name() + " mode");
+    }
+
+    public void check() {
+        gameController.actionCheckForIncorrectValues();
     }
 }
